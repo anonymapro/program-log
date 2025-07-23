@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { format } from "date-fns";
+import { fr } from 'date-fns/locale';
 import type { Article } from "@/lib/types";
 import {
   Card,
@@ -47,7 +48,7 @@ export function ArticleCard({ article }: ArticleCardProps) {
         <div className="mt-2 flex items-center text-sm text-muted-foreground">
           <Calendar className="mr-2 h-4 w-4" />
           <time dateTime={article.date}>
-            {format(new Date(article.date), "MMMM d, yyyy")}
+            {format(new Date(article.date), "d MMMM yyyy", { locale: fr })}
           </time>
         </div>
         <p className="mt-4 text-base text-muted-foreground font-body">
@@ -57,7 +58,7 @@ export function ArticleCard({ article }: ArticleCardProps) {
       <CardFooter className="p-6 pt-0">
         <Button asChild className="w-full" variant="outline">
           <Link href={`/article/${article.id}`}>
-            Read More
+            Lire la suite
             <ArrowRight className="ml-2 h-4 w-4" />
           </Link>
         </Button>

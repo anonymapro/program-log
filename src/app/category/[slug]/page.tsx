@@ -11,11 +11,11 @@ interface CategoryPageProps {
 export async function generateMetadata({ params }: CategoryPageProps) {
   const category = await getCategoryBySlug(params.slug);
   if (!category) {
-    return { title: "Category Not Found" };
+    return { title: "Catégorie non trouvée" };
   }
   return {
     title: `${category.name} - InfoFlash`,
-    description: `News and articles in the ${category.name} category.`,
+    description: `Actualités et articles dans la catégorie ${category.name}.`,
   };
 }
 
@@ -34,7 +34,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
           {category.name}
         </h1>
         <p className="text-muted-foreground mt-2 text-lg">
-          Showing articles from the &quot;{category.name}&quot; category.
+          Affichage des articles de la catégorie &quot;{category.name}&quot;.
         </p>
       </div>
       {articles.length > 0 ? (
@@ -47,7 +47,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
         </div>
       ) : (
         <div className="text-center text-muted-foreground py-16">
-          <p>No articles found in this category yet.</p>
+          <p>Aucun article trouvé dans cette catégorie pour le moment.</p>
         </div>
       )}
     </div>

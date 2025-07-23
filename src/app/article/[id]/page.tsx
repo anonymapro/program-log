@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import Image from "next/image";
 import Link from "next/link";
 import { format } from "date-fns";
+import { fr } from 'date-fns/locale';
 import { getArticleById } from "@/lib/data";
 import { Badge } from "@/components/ui/badge";
 import { Calendar } from "lucide-react";
@@ -15,7 +16,7 @@ interface ArticlePageProps {
 export async function generateMetadata({ params }: ArticlePageProps) {
   const article = await getArticleById(Number(params.id));
   if (!article) {
-    return { title: "Article Not Found" };
+    return { title: "Article non trouvé" };
   }
   return {
     title: `${article.title} - InfoFlash`,
@@ -44,7 +45,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
         <div className="flex items-center justify-center text-sm text-muted-foreground">
           <Calendar className="mr-2 h-4 w-4" />
           <time dateTime={article.date}>
-            Published on {format(new Date(article.date), "MMMM d, yyyy")}
+            Publié le {format(new Date(article.date), "d MMMM yyyy", { locale: fr })}
           </time>
         </div>
       </div>

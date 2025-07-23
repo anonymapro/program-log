@@ -2,74 +2,74 @@ import type { Article, Category } from './types';
 import { generateImage } from '@/ai/flows/generate-image-flow';
 
 const categories: Category[] = [
-  { id: 1, name: 'Politics', slug: 'politics' },
+  { id: 1, name: 'Politique', slug: 'politique' },
   { id: 2, name: 'Sports', slug: 'sports' },
   { id: 3, name: 'Culture', slug: 'culture' },
-  { id: 4, name: 'Economics', slug: 'economics' },
+  { id: 4, name: 'Économie', slug: 'economie' },
   { id: 5, name: 'International', slug: 'international' },
 ];
 
 const articlesData: Omit<Article, 'imageUrl' | 'generatedImageUrl'>[] = [
   {
     id: 1,
-    title: 'New Legislation Passes in Unanimous Vote',
-    imageHint: 'government building',
-    content: 'In a landmark decision, the senate passed new legislation aimed at reforming the tax code. The vote was unanimous, a rare sight in today\'s political climate. Experts say this could have a significant impact on the economy for years to come. The bill includes several key provisions, including a reduction in corporate taxes and an increase in tax credits for renewable energy. Supporters of the bill argue that it will stimulate economic growth and create jobs, while critics express concern about its potential impact on the national debt.',
-    excerpt: 'In a landmark decision, the senate passed new legislation aimed at reforming the tax code...',
+    title: 'Une nouvelle législation est adoptée à l\'unanimité',
+    imageHint: 'bâtiment gouvernemental',
+    content: 'Dans une décision historique, le sénat a adopté une nouvelle législation visant à réformer le code des impôts. Le vote a été unanime, un spectacle rare dans le climat politique actuel. Les experts affirment que cela pourrait avoir un impact significatif sur l\'économie pour les années à venir. Le projet de loi comprend plusieurs dispositions clés, notamment une réduction des impôts sur les sociétés et une augmentation des crédits d\'impôt pour les énergies renouvelables. Les partisans du projet de loi soutiennent qu\'il stimulera la croissance économique et créera des emplois, tandis que les critiques expriment leur inquiétude quant à son impact potentiel sur la dette nationale.',
+    excerpt: 'Dans une décision historique, le sénat a adopté une nouvelle législation visant à réformer le code des impôts...',
     date: '2023-10-26',
     categoryId: 1,
   },
   {
     id: 2,
-    title: 'Local Team Wins Championship in Stunning Upset',
-    imageHint: 'sports stadium',
-    content: 'The city\'s home team, the Wildcats, have won the national championship in a game that will be talked about for generations. They defeated the reigning champions, the Titans, in a stunning 4-3 victory. The final goal was scored in the last 10 seconds of overtime, sending the crowd into a frenzy. The team\'s captain praised the fans for their unwavering support throughout the season.',
-    excerpt: 'The city\'s home team, the Wildcats, have won the national championship in a game that will be talked about for generations.',
+    title: 'L\'équipe locale remporte le championnat dans une victoire surprise',
+    imageHint: 'stade de sport',
+    content: 'L\'équipe locale de la ville, les Wildcats, a remporté le championnat national dans un match dont on parlera pendant des générations. Ils ont battu les champions en titre, les Titans, dans une superbe victoire 4-3. Le but final a été marqué dans les 10 dernières secondes de la prolongation, plongeant la foule dans une frénésie. Le capitaine de l\'équipe a félicité les fans pour leur soutien indéfectible tout au long de la saison.',
+    excerpt: 'L\'équipe locale de la ville, les Wildcats, a remporté le championnat national dans un match qui restera dans les mémoires.',
     date: '2023-10-25',
     categoryId: 2,
   },
   {
     id: 3,
-    title: 'New Art Exhibit Opens Downtown, Celebrates Local Talent',
-    imageHint: 'art gallery',
-    content: 'The Modern Art Museum has unveiled its latest exhibit, "CityScapes," featuring works from over 50 local artists. The collection explores the relationship between urban environments and the human experience. The opening night was a resounding success, with hundreds of art enthusiasts in attendance. The exhibit will be open to the public until the end of the year.',
-    excerpt: 'The Modern Art Museum has unveiled its latest exhibit, "CityScapes," featuring works from over 50 local artists.',
+    title: 'Une nouvelle exposition d\'art célèbre les talents locaux en centre-ville',
+    imageHint: 'galerie d\'art',
+    content: 'Le Musée d\'Art Moderne a dévoilé sa dernière exposition, "Paysages Urbains", présentant des œuvres de plus de 50 artistes locaux. La collection explore la relation entre les environnements urbains et l\'expérience humaine. La soirée d\'ouverture a été un succès retentissant, avec des centaines d\'amateurs d\'art présents. L\'exposition sera ouverte au public jusqu\'à la fin de l\'année.',
+    excerpt: 'Le Musée d\'Art Moderne a dévoilé sa dernière exposition, "Paysages Urbains", qui met en vedette des œuvres de plus de 50 artistes locaux.',
     date: '2023-10-24',
     categoryId: 3,
   },
   {
     id: 4,
-    title: 'Stock Market Reaches All-Time High Amidst Tech Boom',
-    imageHint: 'stock market',
-    content: 'The stock market surged to a new record high this week, driven by a boom in the technology sector. Major tech giants reported better-than-expected earnings, boosting investor confidence. Financial analysts are optimistic about the market\'s future, but advise caution as volatility could be on the horizon. The recent surge has been attributed to innovations in artificial intelligence and cloud computing.',
-    excerpt: 'The stock market surged to a new record high this week, driven by a boom in the technology sector.',
+    title: 'Le marché boursier atteint un niveau record en plein essor technologique',
+    imageHint: 'marché boursier',
+    content: 'Le marché boursier a atteint un nouveau record cette semaine, porté par un boom dans le secteur de la technologie. Les principaux géants de la technologie ont annoncé des bénéfices supérieurs aux prévisions, renforçant la confiance des investisseurs. Les analystes financiers sont optimistes quant à l\'avenir du marché, but conseillent la prudence car la volatilité pourrait être à l\'horizon. La récente flambée a été attribuée aux innovations dans l\'intelligence artificielle et le cloud computing.',
+    excerpt: 'Le marché boursier a atteint un nouveau record cette semaine, porté par une forte croissance du secteur technologique.',
     date: '2023-10-23',
     categoryId: 4,
   },
   {
     id: 5,
-    title: 'Global Summit Addresses Climate Change',
-    imageHint: 'world leaders',
-    content: 'Leaders from around the world gathered for a global summit to discuss strategies for combating climate change. The summit resulted in a new international agreement to reduce carbon emissions by 30% over the next decade. Environmental groups have praised the agreement as a significant step forward, but stress that more action is needed to prevent a climate catastrophe.',
-    excerpt: 'Leaders from around the world gathered for a global summit to discuss strategies for combating climate change.',
+    title: 'Un sommet mondial aborde le changement climatique',
+    imageHint: 'dirigeants mondiaux',
+    content: 'Des dirigeants du monde entier se sont réunis pour un sommet mondial afin de discuter des stratégies de lutte contre le changement climatique. Le sommet a abouti à un nouvel accord international visant à réduire les émissions de carbone de 30 % au cours de la prochaine décennie. Les groupes environnementaux ont salué l\'accord comme une avancée significative, mais soulignent que des mesures supplémentaires sont nécessaires pour prévenir une catastrophe climatique.',
+    excerpt: 'Des dirigeants du monde entier se sont réunis lors d\'un sommet mondial pour discuter des stratégies de lutte contre le changement climatique.',
     date: '2023-10-22',
     categoryId: 5,
   },
   {
     id: 6,
-    title: 'Election Results Signal Political Shift',
-    imageHint: 'voting poll',
-    content: 'The recent national election has resulted in a significant political shift, with the opposition party gaining a majority in parliament for the time in two decades. The new government has promised to prioritize healthcare, education, and infrastructure. Political analysts are closely watching to see how these changes will affect the country\'s domestic and foreign policies.',
-    excerpt: 'The recent national election has resulted in a significant political shift, with the opposition party gaining a majority.',
+    title: 'Les résultats des élections signalent un changement politique',
+    imageHint: 'bureau de vote',
+    content: 'Les récentes élections nationales ont entraîné un changement politique important, le parti d\'opposition obtenant la majorité au parlement pour la première fois en deux décennies. Le nouveau gouvernement a promis de donner la priorité à la santé, à l\'éducation et aux infrastructures. Les analystes politiques observent de près comment ces changements affecteront les politiques nationales et étrangères du pays.',
+    excerpt: 'Les récentes élections nationales ont entraîné un changement politique important, avec la victoire du parti d\'opposition.',
     date: '2023-10-21',
     categoryId: 1,
   },
   {
     id: 7,
-    title: 'Star Athlete Announces Surprise Retirement',
-    imageHint: 'athlete portrait',
-    content: 'In a move that has shocked the sports world, legendary quarterback John "The Cannon" Davis has announced his retirement. After a 15-year career that included three championship rings and numerous records, Davis said he wants to spend more time with his family. Tributes have been pouring in from teammates, rivals, and fans, all celebrating his incredible career.',
-    excerpt: 'In a move that has shocked the sports world, legendary quarterback John "The Cannon" Davis has announced his retirement.',
+    title: 'Un athlète vedette annonce sa retraite surprise',
+    imageHint: 'portrait d\'athlète',
+    content: 'Dans une annonce qui a choqué le monde du sport, le légendaire quarterback John "Le Canon" Davis a annoncé sa retraite. Après une carrière de 15 ans qui comprenait trois titres de champion et de nombreux records, Davis a déclaré vouloir passer plus de temps avec sa famille. Les hommages affluent de la part de ses coéquipiers, de ses rivaux et de ses fans, tous célébrant son incroyable carrière.',
+    excerpt: 'Dans une annonce qui a choqué le monde du sport, le légendaire quarterback John "Le Canon" Davis a annoncé sa retraite.',
     date: '2023-10-20',
     categoryId: 2,
   }
@@ -90,7 +90,7 @@ async function loadArticles() {
         const generatedImage = await generateImage({ prompt: articleData.imageHint });
         generatedImageUrl = generatedImage.imageUrl;
       } catch (error) {
-        console.warn(`Image generation failed for article "${articleData.title}". Using placeholder image. \nTo enable image generation, make sure you have a GEMINI_API_KEY in your .env file. \nError: ${error instanceof Error ? error.message : String(error)}`);
+        console.warn(`La génération d'images a échoué pour l'article "${articleData.title}". Utilisation de l'image de remplacement. \nPour activer la génération d'images, assurez-vous d'avoir une GEMINI_API_KEY dans votre fichier .env. \nErreur: ${error instanceof Error ? error.message : String(error)}`);
       }
       return {
         ...articleData,
@@ -123,7 +123,7 @@ export async function getArticles(): Promise<Article[]> {
   const articles = await loadArticles();
   const articlesWithCategories = articles.map(article => {
     const category = categories.find(c => c.id === article.categoryId);
-    return { ...article, categoryName: category?.name || 'Uncategorized' };
+    return { ...article, categoryName: category?.name || 'Non classé' };
   });
   return articlesWithCategories.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
 }
@@ -134,7 +134,7 @@ export async function getArticleById(id: number): Promise<Article | undefined> {
   const article = articles.find(a => a.id === id);
   if (article) {
     const category = categories.find(c => c.id === article.categoryId);
-    return { ...article, categoryName: category?.name || 'Uncategorized' };
+    return { ...article, categoryName: category?.name || 'Non classé' };
   }
   return undefined;
 }
