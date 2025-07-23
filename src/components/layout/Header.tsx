@@ -3,6 +3,7 @@ import { getCategories } from "@/lib/data";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Button } from "@/components/ui/button";
 import { Menu, Newspaper } from "lucide-react";
+import { NavLink } from "./NavLink";
 
 export default async function Header() {
   const categories = await getCategories();
@@ -16,15 +17,14 @@ export default async function Header() {
             InfoFlash
           </span>
         </Link>
-        <nav className="hidden md:flex items-center space-x-6 text-sm font-medium">
+        <nav className="hidden md:flex items-center space-x-2 text-sm font-medium">
           {categories.map((category) => (
-            <Link
+            <NavLink
               key={category.id}
               href={`/category/${category.slug}`}
-              className="transition-colors hover:text-primary"
             >
               {category.name}
-            </Link>
+            </NavLink>
           ))}
         </nav>
         <div className="md:hidden">
@@ -36,17 +36,25 @@ export default async function Header() {
               </Button>
             </SheetTrigger>
             <SheetContent side="right">
-              <nav className="flex flex-col space-y-4 mt-8">
-                {categories.map((category) => (
-                  <Link
-                    key={category.id}
-                    href={`/category/${category.slug}`}
-                    className="text-lg transition-colors hover:text-primary"
-                  >
-                    {category.name}
-                  </Link>
-                ))}
-              </nav>
+              <div className="p-4">
+                <Link href="/" className="flex items-center gap-2 mb-8">
+                  <Newspaper className="h-8 w-8 text-primary" />
+                  <span className="text-2xl font-bold font-headline text-primary">
+                    InfoFlash
+                  </span>
+                </Link>
+                <nav className="flex flex-col space-y-2">
+                  {categories.map((category) => (
+                     <NavLink
+                      key={category.id}
+                      href={`/category/${category.slug}`}
+                      isMobile={true}
+                    >
+                      {category.name}
+                    </NavLink>
+                  ))}
+                </nav>
+              </div>
             </SheetContent>
           </Sheet>
         </div>
