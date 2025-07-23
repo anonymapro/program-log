@@ -50,7 +50,7 @@ export default async function ArticlePage({ params }: ArticlePageProps) {
       </div>
       <div className="relative w-full h-64 md:h-96 rounded-lg overflow-hidden shadow-lg mb-8">
         <Image
-          src={article.imageUrl}
+          src={article.generatedImageUrl}
           alt={article.title}
           fill
           className="object-cover"

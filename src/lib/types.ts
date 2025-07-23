@@ -8,6 +8,7 @@ export interface Article {
   id: number;
   title: string;
   imageUrl: string;
+  generatedImageUrl: string;
   imageHint: string;
   content: string;
   excerpt: string;

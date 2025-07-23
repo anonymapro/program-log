@@ -24,7 +24,7 @@ export function ArticleCard({ article }: ArticleCardProps) {
         <Link href={`/article/${article.id}`}>
           <div className="relative h-48 w-full">
             <Image
-              src={article.imageUrl}
+              src={article.generatedImageUrl}
               alt={article.title}
               fill
               className="object-cover"
