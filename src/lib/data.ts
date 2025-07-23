@@ -288,6 +288,7 @@ const articlesData: Omit<Article, 'imageUrl' | 'generatedImageUrl'>[] = [
 ];
 
 let articles: Article[] | null = null;
+const ARTICLES_PER_PAGE = 6;
 
 async function loadArticles() {
   if (articles) {
@@ -330,14 +331,21 @@ export async function getCategoryBySlug(slug: string): Promise<Category | undefi
 }
 
 
-export async function getArticles(): Promise<Article[]> {
+export async function getArticles(page = 1): Promise<{ articles: Article[], totalPages: number }> {
   await delay(200);
-  const articles = await loadArticles();
-  const articlesWithCategories = articles.map(article => {
+  const allArticles = await loadArticles();
+  const articlesWithCategories = allArticles.map(article => {
     const category = categories.find(c => c.id === article.categoryId);
     return { ...article, categoryName: category?.name || 'Non classé' };
   });
-  return articlesWithCategories.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+
+  const sortedArticles = articlesWithCategories.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+
+  const totalPages = Math.ceil(sortedArticles.length / ARTICLES_PER_PAGE);
+  const startIndex = (page - 1) * ARTICLES_PER_PAGE;
+  const paginatedArticles = sortedArticles.slice(startIndex, startIndex + ARTICLES_PER_PAGE);
+
+  return { articles: paginatedArticles, totalPages };
 }
 
 export async function getArticleById(id: number): Promise<Article | undefined> {
@@ -351,16 +359,23 @@ export async function getArticleById(id: number): Promise<Article | undefined> {
   return undefined;
 }
 
-export async function getArticlesByCategory(categorySlug: string): Promise<Article[]> {
+export async function getArticlesByCategory(categorySlug: string, page = 1): Promise<{ articles: Article[], totalPages: number, category?: Category }> {
   await delay(200);
-  const articles = await loadArticles();
+  const allArticles = await loadArticles();
   const category = categories.find(c => c.slug === categorySlug);
   if (!category) {
-    return [];
+    return { articles: [], totalPages: 0 };
   }
-  const filteredArticles = articles.filter(a => a.categoryId === category.id);
+  const filteredArticles = allArticles.filter(a => a.categoryId === category.id);
   const articlesWithCategories = filteredArticles.map(article => {
     return { ...article, categoryName: category.name };
   });
-  return articlesWithCategories.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+
+  const sortedArticles = articlesWithCategories.sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
+  
+  const totalPages = Math.ceil(sortedArticles.length / ARTICLES_PER_PAGE);
+  const startIndex = (page - 1) * ARTICLES_PER_PAGE;
+  const paginatedArticles = sortedArticles.slice(startIndex, startIndex + ARTICLES_PER_PAGE);
+  
+  return { articles: paginatedArticles, totalPages, category };
 }

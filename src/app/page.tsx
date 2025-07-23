@@ -1,8 +1,16 @@
 import { ArticleCard } from "@/components/ArticleCard";
+import { PaginationControls } from "@/components/PaginationControls";
 import { getArticles } from "@/lib/data";
 
-export default async function Home() {
-  const articles = await getArticles();
+interface HomeProps {
+  searchParams: {
+    page?: string;
+  };
+}
+
+export default async function Home({ searchParams }: HomeProps) {
+  const page = Number(searchParams.page) || 1;
+  const { articles, totalPages } = await getArticles(page);
 
   return (
     <div className="space-y-8">
@@ -17,6 +25,11 @@ export default async function Home() {
           </div>
         ))}
       </div>
+       <PaginationControls
+        currentPage={page}
+        totalPages={totalPages}
+        baseUrl="/"
+      />
     </div>
   );
 }

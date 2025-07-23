@@ -1,10 +1,14 @@
 import { notFound } from "next/navigation";
 import { ArticleCard } from "@/components/ArticleCard";
+import { PaginationControls } from "@/components/PaginationControls";
 import { getArticlesByCategory, getCategoryBySlug } from "@/lib/data";
 
 interface CategoryPageProps {
   params: {
     slug: string;
+  };
+  searchParams: {
+    page?: string;
   };
 }
 
@@ -19,13 +23,13 @@ export async function generateMetadata({ params }: CategoryPageProps) {
   };
 }
 
-export default async function CategoryPage({ params }: CategoryPageProps) {
-  const category = await getCategoryBySlug(params.slug);
+export default async function CategoryPage({ params, searchParams }: CategoryPageProps) {
+  const page = Number(searchParams.page) || 1;
+  const { articles, totalPages, category } = await getArticlesByCategory(params.slug, page);
+  
   if (!category) {
     notFound();
   }
-
-  const articles = await getArticlesByCategory(params.slug);
 
   return (
     <div className="space-y-8">
@@ -38,13 +42,20 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
         </p>
       </div>
       {articles.length > 0 ? (
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {articles.map((article, index) => (
-            <div key={article.id} className="fade-in" style={{ animationDelay: `${index * 100}ms`}}>
-              <ArticleCard article={article} />
-            </div>
-          ))}
-        </div>
+        <>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {articles.map((article, index) => (
+              <div key={article.id} className="fade-in" style={{ animationDelay: `${index * 100}ms`}}>
+                <ArticleCard article={article} />
+              </div>
+            ))}
+          </div>
+          <PaginationControls
+            currentPage={page}
+            totalPages={totalPages}
+            baseUrl={`/category/${params.slug}`}
+          />
+        </>
       ) : (
         <div className="text-center text-muted-foreground py-16">
           <p>Aucun article trouvé dans cette catégorie pour le moment.</p>
